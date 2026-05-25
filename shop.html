@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashton D'Souza — Creative Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cream: #F5F0E8;
+    --cream2: #EDE6D8;
+    --ink: #1A1510;
+    --ink2: #3A332A;
+    --gold: #C8A96E;
+    --gold2: #A08040;
+    --warm: #8B6B4A;
+    --rust: #B85C38;
+    --sage: #6B7B5A;
+    --soft: #D4C9B8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 10px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transition: transform 0.15s ease, background 0.2s;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transition: transform 0.4s ease, width 0.3s, height 0.3s, opacity 0.3s;
+    transform: translate(-50%, -50%);
+    opacity: 0.6;
+  }
+  body:hover .cursor { opacity: 1; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 4rem;
+    background: transparent;
+    transition: background 0.4s, backdrop-filter 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(245,240,232,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--soft);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); font-style: italic; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink2);
+    transition: color 0.2s;
+    font-weight: 400;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 0 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 70% at 70% 50%, rgba(200,169,110,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 50% at 20% 80%, rgba(139,107,74,0.06) 0%, transparent 50%);
+  }
+  .hero-grain {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .hero-lines {
+    position: absolute; right: 0; top: 0; bottom: 0; width: 50%;
+    display: flex;
+    pointer-events: none;
+    opacity: 0.18;
+  }
+  .hero-line {
+    flex: 1;
+    border-left: 1px solid var(--gold);
+    margin-left: 3.5rem;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 700px; }
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 1rem;
+    animation: fadeUp 0.8s ease forwards;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 40px; height: 1px;
+    background: var(--gold);
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+    display: block;
+  }
+  .hero-desc {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--ink2);
+    font-weight: 300;
+    max-width: 500px;
+    margin-bottom: 3rem;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .hero-actions {
+    display: flex; gap: 1.2rem; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+  .btn-primary {
+    display: inline-block;
+    padding: 0.85rem 2.2rem;
+    background: var(--ink);
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: background 0.25s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--gold2); transform: translateY(-2px); }
+  .btn-outline {
+    display: inline-block;
+    padding: 0.85rem 2.2rem;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 400;
+    transition: border-color 0.25s, color 0.25s, transform 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  /* scroll indicator */
+  .scroll-indicator {
+    position: absolute; bottom: 2.5rem; left: 4rem;
+    display: flex; align-items: center; gap: 0.75rem;
+    font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--warm); opacity: 0.7;
+    animation: fadeUp 0.8s 0.7s ease both;
+  }
+  .scroll-line {
+    width: 1px; height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--warm));
+    animation: scrollPulse 2s infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { transform: scaleY(1); opacity: 0.5; }
+    50% { transform: scaleY(0.6); opacity: 1; }
+  }
+
+  /* SECTION BASE */
+  section { padding: 7rem 4rem; }
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::after {
+    content: '';
+    display: block; width: 30px; height: 1px;
+    background: var(--gold);
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  /* SERVICES */
+  .services { background: var(--ink); }
+  .services .section-label { color: var(--gold); }
+  .services .section-title { color: var(--cream); }
+  .services .section-title em { color: var(--gold); }
+  .services-intro {
+    color: var(--soft); font-weight: 300; line-height: 1.7; font-size: 1rem;
+    max-width: 560px; margin-bottom: 4rem;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .service-card {
+    padding: 2.5rem;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.3s, transform 0.3s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { background: rgba(200,169,110,0.05); }
+  .service-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 0.8rem;
+  }
+  .service-desc {
+    font-size: 0.9rem;
+    color: var(--soft);
+    line-height: 1.65;
+    font-weight: 300;
+    margin-bottom: 1.2rem;
+  }
+  .service-tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid rgba(200,169,110,0.3);
+    color: var(--gold);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* PROCESS */
+  .process { background: var(--cream2); }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0;
+    margin-top: 4rem;
+    position: relative;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 2.5rem; left: 2.5rem; right: 2.5rem;
+    height: 1px;
+    background: var(--soft);
+  }
+  .step {
+    padding: 0 2rem 2rem;
+    position: relative;
+  }
+  .step-num {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--cream);
+    border: 1px solid var(--soft);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    position: relative; z-index: 1;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .step:hover .step-num {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--cream);
+  }
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+  }
+  .step-desc {
+    font-size: 0.88rem;
+    color: var(--ink2);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* WHY ME */
+  .why {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  @media (max-width: 900px) {
+    .why { grid-template-columns: 1fr; gap: 3rem; }
+    nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    .hero { padding: 0 2rem; }
+    section { padding: 5rem 2rem; }
+    .process-steps::before { display: none; }
+  }
+  .why-visual {
+    position: relative;
+    aspect-ratio: 4/5;
+    background: var(--cream2);
+    overflow: hidden;
+  }
+  .why-visual-inner {
+    position: absolute; inset: 1.5rem;
+    background: var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .why-pattern {
+    position: absolute; inset: 0;
+    opacity: 0.15;
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--gold) 0, var(--gold) 1px,
+      transparent 0, transparent 50%
+    );
+    background-size: 14px 14px;
+  }
+  .why-text-overlay {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    font-weight: 300;
+    color: var(--cream);
+    opacity: 0.08;
+    position: absolute;
+    transform: rotate(-15deg);
+    white-space: nowrap;
+    font-style: italic;
+    letter-spacing: -0.02em;
+  }
+  .why-badge {
+    position: absolute; bottom: 0; right: 0;
+    background: var(--gold);
+    color: var(--ink);
+    padding: 1.2rem 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    text-align: center;
+    line-height: 1.3;
+  }
+  .why-badge span { display: block; font-size: 2rem; font-weight: 300; }
+  .why-content .section-label { margin-bottom: 0.8rem; }
+  .why-points { list-style: none; margin-top: 2rem; display: flex; flex-direction: column; gap: 1.2rem; }
+  .why-point {
+    display: flex; gap: 1rem; align-items: flex-start;
+  }
+  .why-point-icon {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    background: var(--cream2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+    color: var(--gold);
+    margin-top: 2px;
+  }
+  .why-point-text { font-size: 0.92rem; line-height: 1.65; color: var(--ink2); font-weight: 300; }
+  .why-point-text strong { color: var(--ink); font-weight: 500; }
+
+  /* PRICING TEASER */
+  .pricing { background: var(--cream); }
+  .pricing-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .price-card {
+    padding: 2.5rem;
+    border: 1px solid var(--soft);
+    position: relative;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .price-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .price-card.featured {
+    border-color: var(--gold);
+    background: var(--ink);
+  }
+  .featured-badge {
+    position: absolute; top: -1px; right: 2rem;
+    background: var(--gold);
+    color: var(--ink);
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    font-weight: 500;
+  }
+  .price-category {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--warm);
+    margin-bottom: 1rem;
+  }
+  .price-card.featured .price-category { color: var(--gold); }
+  .price-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+  .price-card.featured .price-name { color: var(--cream); }
+  .price-amount {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .price-note {
+    font-size: 0.8rem;
+    color: var(--warm);
+    margin-bottom: 1.5rem;
+  }
+  .price-card.featured .price-note { color: var(--soft); }
+  .price-features { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; margin-bottom: 2rem; }
+  .price-features li {
+    font-size: 0.88rem;
+    color: var(--ink2);
+    font-weight: 300;
+    padding-left: 1.1rem;
+    position: relative;
+  }
+  .price-features li::before {
+    content: '—';
+    position: absolute; left: 0;
+    color: var(--gold);
+    font-size: 0.75rem;
+  }
+  .price-card.featured .price-features li { color: var(--soft); }
+
+  /* CONTACT */
+  .contact { background: var(--ink); padding: 7rem 4rem; }
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+  @media (max-width: 800px) {
+    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .contact { padding: 5rem 2rem; }
+  }
+  .contact .section-label { color: var(--gold); }
+  .contact .section-title { color: var(--cream); }
+  .contact-desc {
+    color: var(--soft); font-weight: 300; line-height: 1.75; font-size: 0.95rem;
+    margin-bottom: 2.5rem;
+  }
+  .contact-methods { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-method {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.5rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    text-decoration: none;
+    transition: border-color 0.3s, background 0.3s;
+    cursor: pointer;
+  }
+  .contact-method:hover {
+    border-color: var(--gold);
+    background: rgba(200,169,110,0.06);
+  }
+  .contact-method-icon {
+    width: 36px; height: 36px;
+    background: rgba(200,169,110,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .contact-method-info { flex: 1; }
+  .contact-method-label {
+    font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.15rem;
+  }
+  .contact-method-value {
+    font-size: 0.92rem; color: var(--cream); font-weight: 300;
+  }
+  .contact-method-arrow {
+    color: var(--gold); font-size: 0.9rem; opacity: 0.6;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  .contact-method:hover .contact-method-arrow { transform: translateX(3px); opacity: 1; }
+
+  /* Contact form side */
+  .contact-form-side { }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-label {
+    display: block;
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--cream);
+    padding: 0.85rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    transition: border-color 0.2s;
+    outline: none;
+    -webkit-appearance: none;
+  }
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(213,201,184,0.4); }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--gold); }
+  .form-select option { background: #1A1510; }
+  .form-textarea { resize: vertical; min-height: 120px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  /* FOOTER */
+  footer {
+    background: #0E0C0A;
+    padding: 2rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  @media (max-width: 600px) {
+    footer { flex-direction: column; gap: 1rem; padding: 2rem; text-align: center; }
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: var(--cream);
+    font-weight: 300;
+    text-decoration: none;
+  }
+  .footer-logo span { color: var(--gold); font-style: italic; }
+  .footer-copy {
+    font-size: 0.75rem;
+    color: rgba(213,201,184,0.4);
+    letter-spacing: 0.08em;
+  }
+  .footer-socials { display: flex; gap: 1.2rem; }
+  .footer-socials a {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(213,201,184,0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-socials a:hover { color: var(--gold); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* Floating elements */
+  .floating-text {
+    position: absolute;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.4;
+    writing-mode: vertical-rl;
+    right: 4rem;
+    top: 50%;
+    transform: translateY(-50%) rotate(180deg);
+    animation: fadeUp 1s 1s ease both;
+  }
+
+  /* Mangaluru location tag */
+  .location-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.75rem; color: var(--warm); letter-spacing: 0.1em;
+    margin-top: 1rem;
+    animation: fadeUp 0.8s 0.6s ease both;
+  }
+  .location-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--gold);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+
+  /* whatsapp green hint */
+  .wa { color: #4CAF50; }
+  .ig { color: #E1306C; }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Ashton <span>D'Souza</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-lines">
+    <div class="hero-line"></div>
+    <div class="hero-line"></div>
+    <div class="hero-line"></div>
+  </div>
+  <div class="floating-text">Based in Mangaluru</div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Creative Studio</p>
+    <h1 class="hero-title">
+      Preserving Moments,<br>
+      <em>Crafting Stories</em>
+    </h1>
+    <p class="hero-desc">
+      From restoring your treasured family photographs to transforming old negatives into vivid digital memories — professional photo and video services that bring the past to life and the present to art.
+    </p>
+    <div class="location-tag">
+      <span class="location-dot"></span>
+      Mangaluru, Karnataka
+    </div>
+    <div class="hero-actions" style="margin-top:2rem;">
+      <a href="#services" class="btn-primary">Explore Services</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-label">What I Offer</div>
+  <h2 class="section-title">Expert <em>Services</em></h2>
+  <p class="services-intro">Every photograph and frame holds a story. I bring the expertise to restore, enhance, and reimagine your visual memories with care and artistry.</p>
+
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <span class="service-icon">🖼</span>
+      <h3 class="service-name">Photo Restoration</h3>
+      <p class="service-desc">Bring damaged, torn, or faded photographs back to their original glory. Scratches, water damage, missing pieces — all expertly repaired.</p>
+      <span class="service-tag">Restoration</span>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <span class="service-icon">🎨</span>
+      <h3 class="service-name">B&W to Colour</h3>
+      <p class="service-desc">Transform your black-and-white memories into rich, vibrant colour photographs using advanced hand-applied colouring techniques.</p>
+      <span class="service-tag">Colorization</span>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <span class="service-icon">📽</span>
+      <h3 class="service-name">Negative Film to Digital</h3>
+      <p class="service-desc">Convert your old film negatives to high-resolution digital colour images. Preserve family history before it fades forever.</p>
+      <span class="service-tag">Digitization</span>
+    </div>
+    <div class="service-card reveal reveal-delay-3">
+      <span class="service-icon">✦</span>
+      <h3 class="service-name">Photo Editing & Grading</h3>
+      <p class="service-desc">Professional retouching, colour grading, and enhancement for portraits, events, product photography, and more.</p>
+      <span class="service-tag">Editing</span>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">🎬</span>
+      <h3 class="service-name">Video Editing</h3>
+      <p class="service-desc">Full video editing with colour grading, motion graphics, music sync, and cinematic treatments for any occasion or project.</p>
+      <span class="service-tag">Video</span>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <span class="service-icon">📱</span>
+      <h3 class="service-name">Reels Editing</h3>
+      <p class="service-desc">Scroll-stopping Instagram Reels and short-form video content — fast cuts, trending transitions, and perfect pacing for maximum reach.</p>
+      <span class="service-tag">Social Media</span>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <span class="service-icon">✈</span>
+      <h3 class="service-name">Travel Videos & Vlogs</h3>
+      <p class="service-desc">Cinematic travel films and vlogs that capture the spirit of adventure. Professional storytelling from your raw footage.</p>
+      <span class="service-tag">Cinematic</span>
+    </div>
+    <div class="service-card reveal reveal-delay-3">
+      <span class="service-icon">◆</span>
+      <h3 class="service-name">Custom Projects</h3>
+      <p class="service-desc">Got something unique in mind? Photo slideshows, memory montages, social media content, or any bespoke creative project.</p>
+      <span class="service-tag">Bespoke</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="section-label">How It Works</div>
+  <h2 class="section-title">Simple <em>Process,</em><br>Beautiful Results</h2>
+  <div class="process-steps">
+    <div class="step reveal">
+      <div class="step-num">01</div>
+      <h3 class="step-title">Reach Out</h3>
+      <p class="step-desc">Contact me via WhatsApp, Instagram, or email. Share your project details and I'll get back to you promptly.</p>
+    </div>
+    <div class="step reveal reveal-delay-1">
+      <div class="step-num">02</div>
+      <h3 class="step-title">Share Your Files</h3>
+      <p class="step-desc">Send over your photos, videos, or negatives. I'll assess the work and give you a transparent quote.</p>
+    </div>
+    <div class="step reveal reveal-delay-2">
+      <div class="step-num">03</div>
+      <h3 class="step-title">I Create</h3>
+      <p class="step-desc">Work begins with regular updates shared during the process. Your vision stays at the centre of every decision.</p>
+    </div>
+    <div class="step reveal reveal-delay-3">
+      <div class="step-num">04</div>
+      <h3 class="step-title">Delivery</h3>
+      <p class="step-desc">Receive your finished files in high resolution, ready to print, share, or treasure forever.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY ME -->
+<section id="about" style="padding: 7rem 4rem; background: var(--cream);">
+  <div class="why">
+    <div class="why-visual reveal">
+      <div class="why-visual-inner">
+        <div class="why-pattern"></div>
+        <p class="why-text-overlay">Ashton D'Souza</p>
+        <div style="text-align:center; position:relative; z-index:2; padding: 2rem;">
+          <p style="font-family:'Cormorant Garamond',serif; font-size: 3.5rem; font-weight:300; color: var(--cream); line-height:1; margin-bottom: 0.5rem;">A</p>
+          <p style="font-family:'Cormorant Garamond',serif; font-size: 1rem; font-weight:300; color: var(--gold); letter-spacing: 0.2em; text-transform:uppercase;">Creative Studio</p>
+        </div>
+      </div>
+      <div class="why-badge">
+        <span>∞</span>
+        Passion for<br>Every Pixel
+      </div>
+    </div>
+    <div class="why-content reveal">
+      <div class="section-label">Why Choose Me</div>
+      <h2 class="section-title">Art Meets <em>Dedication</em></h2>
+      <p style="font-size:0.95rem; line-height:1.75; color: var(--ink2); font-weight:300; margin-bottom: 0.5rem;">
+        Based in Mangaluru, I combine technical skill with a genuine love for visual storytelling. Every project gets my full attention — no rushed work, no templates.
+      </p>
+      <ul class="why-points">
+        <li class="why-point">
+          <div class="why-point-icon">✦</div>
+          <p class="why-point-text"><strong>Handcrafted quality</strong> — each edit is done manually with attention to every detail, not automated filters.</p>
+        </li>
+        <li class="why-point">
+          <div class="why-point-icon">✦</div>
+          <p class="why-point-text"><strong>Fast turnaround</strong> — most projects delivered within 48–72 hours without compromising quality.</p>
+        </li>
+        <li class="why-point">
+          <div class="why-point-icon">✦</div>
+          <p class="why-point-text"><strong>Affordable rates</strong> — professional results at honest, transparent pricing with no hidden fees.</p>
+        </li>
+        <li class="why-point">
+          <div class="why-point-icon">✦</div>
+          <p class="why-point-text"><strong>Direct communication</strong> — you work with me, not an agency. Updates and revisions are always just a message away.</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-label">Investment</div>
+  <h2 class="section-title">Transparent <em>Pricing</em></h2>
+  <p style="color:var(--ink2); font-weight:300; max-width:500px; line-height:1.7; font-size:0.95rem;">Starting prices for common services. Exact quotes provided after reviewing your project — contact me for a free estimate.</p>
+  <div class="pricing-cards">
+    <div class="price-card reveal">
+      <p class="price-category">Photography</p>
+      <h3 class="price-name">Photo Restoration</h3>
+      <p class="price-amount">₹299<small style="font-size:1rem; color:var(--warm)">+</small></p>
+      <p class="price-note">per photo, starting price</p>
+      <ul class="price-features">
+        <li>Scratch & tear repair</li>
+        <li>Colour correction</li>
+        <li>High-res delivery</li>
+        <li>2 revision rounds</li>
+      </ul>
+      <a href="#contact" class="btn-outline" style="font-size:0.72rem; padding: 0.65rem 1.4rem;">Enquire Now</a>
+    </div>
+    <div class="price-card featured reveal reveal-delay-1">
+      <div class="featured-badge">Popular</div>
+      <p class="price-category">Photography</p>
+      <h3 class="price-name">B&W to Colour</h3>
+      <p class="price-amount">₹499<small style="font-size:1rem; color:var(--soft)">+</small></p>
+      <p class="price-note">per photo, starting price</p>
+      <ul class="price-features">
+        <li>Hand-applied colourisation</li>
+        <li>Skin tone accuracy</li>
+        <li>Background detail</li>
+        <li>Unlimited revisions</li>
+      </ul>
+      <a href="#contact" class="btn-primary" style="font-size:0.72rem; padding: 0.65rem 1.4rem;">Enquire Now</a>
+    </div>
+    <div class="price-card reveal reveal-delay-2">
+      <p class="price-category">Video</p>
+      <h3 class="price-name">Reels Editing</h3>
+      <p class="price-amount">₹799<small style="font-size:1rem; color:var(--warm)">+</small></p>
+      <p class="price-note">per reel, starting price</p>
+      <ul class="price-features">
+        <li>Up to 60 seconds</li>
+        <li>Music sync & cuts</li>
+        <li>Text & transitions</li>
+        <li>Colour grading</li>
+      </ul>
+      <a href="#contact" class="btn-outline" style="font-size:0.72rem; padding: 0.65rem 1.4rem;">Enquire Now</a>
+    </div>
+    <div class="price-card reveal reveal-delay-3">
+      <p class="price-category">Video</p>
+      <h3 class="price-name">Travel Video</h3>
+      <p class="price-amount">₹1999<small style="font-size:1rem; color:var(--warm)">+</small></p>
+      <p class="price-note">per video, starting price</p>
+      <ul class="price-features">
+        <li>Up to 5 minutes</li>
+        <li>Cinematic grading</li>
+        <li>Music & sound design</li>
+        <li>Story-driven edit</li>
+      </ul>
+      <a href="#contact" class="btn-outline" style="font-size:0.72rem; padding: 0.65rem 1.4rem;">Enquire Now</a>
+    </div>
+  </div>
+  <p style="margin-top:2rem; font-size:0.82rem; color:var(--warm); font-style:italic;">* All prices are starting rates. Final pricing depends on complexity and volume. Discounts available for bulk orders.</p>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div>
+      <div class="section-label">Get in Touch</div>
+      <h2 class="section-title">Let's Work<br><em>Together</em></h2>
+      <p class="contact-desc">Ready to restore a memory or create something new? Reach out through any channel — I typically respond within a few hours.</p>
+
+      <div class="contact-methods">
+        <a href="https://wa.me/917353380635" class="contact-method" target="_blank">
+          <div class="contact-method-icon"><span class="wa">●</span></div>
+          <div class="contact-method-info">
+            <p class="contact-method-label">WhatsApp</p>
+            <p class="contact-method-value">+91 73533 80635</p>
+          </div>
+          <span class="contact-method-arrow">→</span>
+        </a>
+        <a href="https://instagram.com/ashtonds" class="contact-method" target="_blank">
+          <div class="contact-method-icon"><span class="ig">●</span></div>
+          <div class="contact-method-info">
+            <p class="contact-method-label">Instagram</p>
+            <p class="contact-method-value">@ashtonds</p>
+          </div>
+          <span class="contact-method-arrow">→</span>
+        </a>
+        <a href="mailto:ashtondsouza289@gmail.com" class="contact-method">
+          <div class="contact-method-icon">✉</div>
+          <div class="contact-method-info">
+            <p class="contact-method-label">Email</p>
+            <p class="contact-method-value">ashtondsouza289@gmail.com</p>
+          </div>
+          <span class="contact-method-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-form-side reveal">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input type="text" class="form-input" placeholder="Full name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone / WhatsApp</label>
+          <input type="text" class="form-input" placeholder="+91 00000 00000">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Service Required</label>
+        <select class="form-select">
+          <option value="" disabled selected>Select a service...</option>
+          <option>Photo Restoration</option>
+          <option>B&W to Colour</option>
+          <option>Negative Film to Digital</option>
+          <option>Photo Editing & Grading</option>
+          <option>Video Editing</option>
+          <option>Reels Editing</option>
+          <option>Travel Video / Vlog</option>
+          <option>Other / Custom Project</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tell Me About Your Project</label>
+        <textarea class="form-textarea" placeholder="Describe your project, number of photos/videos, any specific requirements..."></textarea>
+      </div>
+      <button onclick="sendViaWhatsApp()" class="btn-primary" style="width:100%; text-align:center; border:none; font-family:'DM Sans',sans-serif; cursor:pointer;">
+        Send via WhatsApp →
+      </button>
+      <p style="font-size:0.75rem; color:rgba(213,201,184,0.4); margin-top:0.75rem; text-align:center;">Or email directly at ashtondsouza289@gmail.com</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">Ashton <span>D'Souza</span></a>
+  <p class="footer-copy">© 2025 Ashton D'Souza Creative Studio · Mangaluru</p>
+  <div class="footer-socials">
+    <a href="https://wa.me/917353380635" target="_blank">WhatsApp</a>
+    <a href="https://instagram.com/ashtonds" target="_blank">Instagram</a>
+    <a href="mailto:ashtondsouza289@gmail.com">Email</a>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx+'px'; cursor.style.top = my+'px'; });
+function animateRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx+'px'; ring.style.top = ry+'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+document.querySelectorAll('a, button, .service-card, .contact-method').forEach(el => {
+  el.addEventListener('mouseenter', () => { ring.style.width='52px'; ring.style.height='52px'; ring.style.opacity='1'; });
+  el.addEventListener('mouseleave', () => { ring.style.width='36px'; ring.style.height='36px'; ring.style.opacity='0.6'; });
+});
+
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.12 });
+reveals.forEach(el => observer.observe(el));
+
+// WhatsApp form
+function sendViaWhatsApp() {
+  const name = document.querySelector('.form-input').value || 'there';
+  const service = document.querySelector('.form-select').value || 'your services';
+  const msg = document.querySelector('.form-textarea').value || '';
+  const text = encodeURIComponent(`Hi Ashton! I'm ${name} and I'm interested in ${service}.\n\n${msg}`);
+  window.open(`https://wa.me/917353380635?text=${text}`, '_blank');
+}
+</script>
+</body>
+</html>
